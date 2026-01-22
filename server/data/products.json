@@ -1,0 +1,27 @@
+[
+	{
+		"id": 1,
+		"name": "Nintendo Wii Console HD",
+		"title": "Nintendo Wii Console HD + Pick 1-4 Voomwa Remotes, Wii Sports, Mario & More",
+		"price": 99.99,
+		"image": "/assets/products/wii-main.jpg",
+		"location": "Istanbul, Turkey",
+		"condition": "Excellent - Refurbished",
+		"colorOptions": ["White"],
+		"storageOptions": [],
+		"quantityAvailable": 2,
+		"soldRecently": 10,
+		"seller": {
+			"name": "Voomwa",
+			"rating": "99.7% positive",
+			"feedbackCount": 29385
+		},
+		"images": [
+			"/assets/products/wii-main.jpg",
+			"/assets/products/wii-1.jpg",
+			"/assets/products/wii-2.jpg",
+			"/assets/products/wii-3.jpg"
+		],
+		"description": "Wii console shows minimal wear and is fully functional. Wii has been professionally refurbished. Includes Wii Sports, Mario, and more."
+	}
+]

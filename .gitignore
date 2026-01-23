@@ -39,3 +39,7 @@ api/*.json
 *.swp
 *.swo
 *~
+
+# Build and zip files
+*.zip
+*.tar.gz

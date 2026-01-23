@@ -27,18 +27,29 @@
 </template>
 
 <script setup lang="ts">
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from '~/utils/firebase'
+// import { collection, getDocs } from 'firebase/firestore'
+// import { db } from '~/utils/firebase'
 import { ref, onMounted } from 'vue'
 
 const spotlight = ref<any>(null)
 
 onMounted(async () => {
-  const querySnapshot = await getDocs(collection(db, 'spotlightDeals'))
-  // Son eklenen spotlight'ı al
-  const docs = querySnapshot.docs.map(doc => doc.data())
-  if (docs.length > 0) {
-    spotlight.value = docs[docs.length - 1]
+  // ========== Express API (Aktif) ==========
+  try {
+    const response = await $fetch('http://localhost:4001/api/spotlightDeals')
+    const docs = response as any[]
+    if (docs.length > 0) {
+      spotlight.value = docs[docs.length - 1]
+    }
+  } catch (e) {
+    console.error('Error fetching spotlight deals:', e)
   }
+  
+  // ========== Firebase (Yorum - Pasif) ==========
+  // const querySnapshot = await getDocs(collection(db, 'spotlightDeals'))
+  // const docs = querySnapshot.docs.map(doc => doc.data())
+  // if (docs.length > 0) {
+  //   spotlight.value = docs[docs.length - 1]
+  // }
 })
 </script>

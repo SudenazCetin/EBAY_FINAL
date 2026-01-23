@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { getFirestore, collection, getDocs } from 'firebase/firestore'
+// import { getFirestore, collection, getDocs } from 'firebase/firestore'
 import { ref, onMounted } from 'vue'
 
 const props = defineProps({
@@ -33,10 +33,20 @@ const props = defineProps({
 const banners = ref<any[]>([])
 
 onMounted(async () => {
-	const db = getFirestore()
-	const querySnapshot = await getDocs(collection(db, 'returnsBanners'))
-	const allBanners = querySnapshot.docs.map(doc => doc.data())
-	banners.value = allBanners.slice(-props.limit)
+	// ========== Express API (Aktif) ==========
+	try {
+		const response = await $fetch('http://localhost:4001/api/returnsBanners')
+		const allBanners = response as any[]
+		banners.value = allBanners.slice(-props.limit)
+	} catch (e) {
+		console.error('Error fetching returns banners:', e)
+	}
+	
+	// ========== Firebase (Yorum - Pasif) ==========
+	// const db = getFirestore()
+	// const querySnapshot = await getDocs(collection(db, 'returnsBanners'))
+	// const allBanners = querySnapshot.docs.map(doc => doc.data())
+	// banners.value = allBanners.slice(-props.limit)
 })
 
 function bannerStyle(banner: any) {

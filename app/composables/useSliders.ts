@@ -2,25 +2,6 @@ import { collection, getDocs } from 'firebase/firestore'
 import { db } from '~/utils/firebase'
 
 export function useSliders() {
-  // ========== Express API (Yorum - Pasif) ==========
-  // const { data: sliders, pending: loading } = useAsyncData(
-  //   'sliders',
-  //   async () => {
-  //     try {
-  //       const response = await $fetch('http://localhost:4001/api/sliders')
-  //       return response as any[]
-  //     } catch (e) {
-  //       console.error('Error fetching sliders:', e)
-  //       return []
-  //     }
-  //   },
-  //   {
-  //     server: true,
-  //     lazy: false,
-  //     default: () => []
-  //   }
-  // )
-
   // ========== Firebase (Aktif) ==========
   const { data: sliders, pending: loading } = useAsyncData(
     'sliders',
@@ -45,6 +26,25 @@ export function useSliders() {
       default: () => []
     }
   )
+
+  // ========== Express API (Yorum - Pasif) ==========
+  // const { data: sliders, pending: loading } = useAsyncData(
+  //   'sliders',
+  //   async () => {
+  //     try {
+  //       const response = await $fetch('http://localhost:4001/api/sliders')
+  //       return response as any[]
+  //     } catch (e) {
+  //       console.error('Error fetching sliders:', e)
+  //       return []
+  //     }
+  //   },
+  //   {
+  //     server: true,
+  //     lazy: false,
+  //     default: () => []
+  //   }
+  // )
 
   return { sliders, loading }
 }

@@ -19,14 +19,23 @@
 </template>
 
 <script setup lang="ts">
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from '~/utils/firebase'
+// import { collection, getDocs } from 'firebase/firestore'
+// import { db } from '~/utils/firebase'
 import { ref, onMounted } from 'vue'
 
 const deals = ref<any[]>([])
 
 onMounted(async () => {
-  const querySnapshot = await getDocs(collection(db, 'featuredDeals'))
-  deals.value = querySnapshot.docs.map(doc => doc.data())
+  // ========== Express API (Aktif) ==========
+  try {
+    const response = await $fetch('http://localhost:4001/api/featuredDeals')
+    deals.value = response as any[]
+  } catch (e) {
+    console.error('Error fetching featured deals:', e)
+  }
+  
+  // ========== Firebase (Yorum - Pasif) ==========
+  // const querySnapshot = await getDocs(collection(db, 'featuredDeals'))
+  // deals.value = querySnapshot.docs.map(doc => doc.data())
 })
 </script>

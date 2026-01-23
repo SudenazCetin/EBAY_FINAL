@@ -33,7 +33,19 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Koleksiyon adları
-const collections = ['banners', 'motors', 'products', 'trending'];
+const collections = [
+    'banners',
+    'categoryBanners',
+    'featuredDeals',
+    'motors',
+    'products',
+    'recentlyViewed',
+    'returnsBanners',
+    'returnsProducts',
+    'sliders',
+    'spotlightDeals',
+    'trending'
+];
 
 // Ana fonksiyon
 async function fetchAllData() {

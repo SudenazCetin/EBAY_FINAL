@@ -1,6 +1,6 @@
 <!-- app/components/organisms/HeroSlider.vue -->
 <template>
-  <div v-if="!loading && sliders.length" class="relative w-full h-[420px] md:h-[480px] rounded-2xl overflow-hidden bg-gray-200">
+  <div v-if="!loading && sliders.length" class="relative w-full h-[420px] md:h-[480px] rounded-2xl overflow-hidden bg-amber-500">
     <div
       class="flex w-full h-full transition-transform duration-700"
       :style="{ transform: `translateX(-${activeIndex * 100}%)` }"
@@ -9,25 +9,38 @@
         v-for="(slider, index) in sliders"
         :key="slider.id"
         class="min-w-full h-full relative"
+        :class="index === 0 ? 'bg-white' : index === 1 ? 'bg-amber-500' : 'bg-black'"
       >
-        <img :src="slider.image" class="w-full h-full object-cover" />
-        <div class="absolute top-1/3 left-10 md:left-20 text-white drop-shadow-2xl">
+        <img :src="slider.image" class="w-full h-full object-cover opacity-0" />
+        <div class="absolute top-1/3 left-10 md:left-20 drop-shadow-2xl" 
+             :class="index === 0 ? 'text-black' : index === 1 ? 'text-amber-900' : 'text-white'">
           <h2 class="text-3xl md:text-5xl font-bold mb-3 max-w-xl">
             {{ slider.title }}
           </h2>
           <p class="text-lg md:text-xl mb-6 max-w-md">
             {{ slider.description }}
           </p>
+          <NuxtLink to="/search" class="inline-block font-bold py-3 px-8 rounded-full transition-all"
+            :class="index === 0 ? 'bg-black hover:bg-gray-800 text-white' : index === 1 ? 'bg-amber-900 hover:bg-amber-800 text-amber-50' : 'bg-white hover:bg-gray-100 text-black'">
+            {{ index === 0 ? 'Shop now' : index === 1 ? 'Do your thing' : 'Start' }}
+          </NuxtLink>
         </div>
         <!-- HOTSPOTS -->
-        <div
-          v-for="(hotspot, i) in slider.hotspots"
-          :key="i"
-          class="hotspot"
-          :style="hotspotStyle(hotspot)"
-          @click="goTo(hotspot.link)"
-        >
-          <span class="hotspot-title">{{ hotspot.title }}</span>
+        <div v-if="slider.hotspots && slider.hotspots.length" class="absolute right-8 md:right-16 top-1/2 -translate-y-1/2 flex gap-6 items-center">
+          <NuxtLink
+            v-for="(hotspot, i) in slider.hotspots"
+            :key="i"
+            :to="getHotspotLink(hotspot.title)"
+            class="cursor-pointer hover:scale-105 transition-all flex flex-col items-center"
+          >
+            <div class="w-48 h-48 md:w-64 md:h-64 flex items-center justify-center bg-white/10 rounded-lg p-3">
+              <img :src="hotspot.link" :alt="hotspot.title" class="w-full h-full object-contain" />
+            </div>
+            <span class="text-black font-bold text-base mt-3 px-4 py-2 rounded-full"
+              :class="index === 0 ? 'bg-white' : index === 1 ? 'bg-amber-400' : 'bg-white'">
+              {{ hotspot.title }}
+            </span>
+          </NuxtLink>
         </div>
       </div>
     </div>
@@ -104,7 +117,11 @@ function hotspotStyle(hotspot: any) {
   }
 }
 
-function goTo(link: string) {
-  window.open(link, '_blank')
+function getHotspotLink(title: string) {
+  const titleLower = title.toLowerCase()
+  if (titleLower.includes('motor')) return '/search?category=motors'
+  if (titleLower.includes('electronic')) return '/search?category=electronics'
+  if (titleLower.includes('collectible') || titleLower.includes('art')) return '/collectibles'
+  return '/search'
 }
 </script>

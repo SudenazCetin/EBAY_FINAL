@@ -18,8 +18,8 @@ export const useMessages = () => {
             }
         },
         {
-            server: true,
-            lazy: false
+            server: false,  // CSR - kullanıcıya özel veri
+            lazy: true
         }
     )
 

@@ -11,10 +11,8 @@
           class="min-w-[240px] min-h-[320px] bg-white rounded-xl shadow p-3 flex flex-col items-center relative group hover:shadow-lg transition"
         >
           <button 
-            class="absolute top-3 right-3 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-pink-100 transition"
-            @click.stop="toggleLike(item)"
-            @mouseenter="showPreview(item)"
-            @mouseleave="hidePreview()"
+            class="absolute top-3 right-3 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-pink-100 transition z-10"
+            @click.prevent.stop="toggleLike(item)"
           >
             <svg xmlns="http://www.w3.org/2000/svg" :fill="watchlist.isInWatchlist(item.id) ? '#000' : 'none'" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 text-black group-hover:text-pink-500">
               <path stroke-linecap="round" stroke-linejoin="round" :stroke-width="watchlist.isInWatchlist(item.id) ? 2 : 2.5" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 21.364l-7.682-7.682a4.5 4.5 0 010-6.364z" />
@@ -41,20 +39,28 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore'
 import { app } from '~/utils/firebase'
 import WatchlistPreview from './WatchlistPreview.vue'
 import { useWatchlistStore } from '~/stores/watchlistStore'
+
+interface RecentlyViewedItem {
+  id: string | number
+  title: string
+  price: number
+  image: string
+}
+
 const watchlist = useWatchlistStore()
 
-const items = ref([])
-const previewItem = ref(null)
+const items = ref<RecentlyViewedItem[]>([])
+const previewItem = ref<RecentlyViewedItem | null>(null)
 const previewShow = ref(false)
 
-function toggleLike(item) {
+function toggleLike(item: RecentlyViewedItem) {
   if (watchlist.isInWatchlist(item.id)) {
     watchlist.remove(item.id)
   } else {
     watchlist.add(item)
   }
 }
-function showPreview(item) {
+function showPreview(item: RecentlyViewedItem) {
   previewItem.value = item
   previewShow.value = true
 }
@@ -63,14 +69,26 @@ function hidePreview() {
 }
 
 onMounted(async () => {
-  const db = getFirestore(app)
-  // Burada userId'yi kendi kullanıcı yönetimine göre değiştir!
-  const userId = 'U63PEFg9MjSaXDZ4yUJX'
-  const docRef = doc(db, 'recentlyViewed', userId)
-  const docSnap = await getDoc(docRef)
-  if (docSnap.exists()) {
-    items.value = docSnap.data().items || []
+  // ========== Express API (Aktif) ==========
+  try {
+    const response = await $fetch<Array<{ items: RecentlyViewedItem[] }>>('http://localhost:4001/api/recentlyViewed')
+    if (response && response.length > 0 && response[0]) {
+      // İlk kullanıcının items'ını al
+      items.value = response[0].items || []
+    }
+  } catch (e) {
+    console.error('Error fetching recently viewed:', e)
   }
+
+  // ========== Firebase (Yorum - Pasif) ==========
+  // const db = getFirestore(app)
+  // // Burada userId'yi kendi kullanıcı yönetimine göre değiştir!
+  // const userId = 'U63PEFg9MjSaXDZ4yUJX'
+  // const docRef = doc(db, 'recentlyViewed', userId)
+  // const docSnap = await getDoc(docRef)
+  // if (docSnap.exists()) {
+  //   items.value = docSnap.data().items || []
+  // }
 })
 
 const scrollContainer = ref<HTMLElement | null>(null)
@@ -85,11 +103,23 @@ function scrollRight() {
 
 <style scoped>
 .recently-scroll {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: #e0e0e0 transparent;
 }
 .recently-scroll::-webkit-scrollbar {
-  display: none;
+  height: 8px;
+}
+.recently-scroll::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+  margin: 0 40px;
+}
+.recently-scroll::-webkit-scrollbar-thumb {
+  background: #d0d0d0;
+  border-radius: 10px;
+}
+.recently-scroll::-webkit-scrollbar-thumb:hover {
+  background: #b0b0b0;
 }
 .arrow-btn {
   background: #fff;
@@ -108,6 +138,7 @@ function scrollRight() {
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

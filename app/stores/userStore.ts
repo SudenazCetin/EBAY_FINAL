@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 import { db } from '~/utils/firebase';
 import type { User } from '~/types/User';
 
@@ -17,6 +17,20 @@ export const useUserStore = defineStore('user', {
         this.users = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as User[];
       } catch (e: any) {
         this.error = e.message;
+      } finally {
+        this.loading = false;
+      }
+    },
+    async addUser(userData: Omit<User, 'id'>) {
+      this.loading = true;
+      try {
+        const docRef = await addDoc(collection(db, 'users'), userData);
+        const newUser = { id: docRef.id, ...userData } as User;
+        this.users.push(newUser);
+        return newUser;
+      } catch (e: any) {
+        this.error = e.message;
+        throw e;
       } finally {
         this.loading = false;
       }

@@ -22,3 +22,20 @@ logs
 .env
 .env.*
 !.env.example
+
+# Firebase scripts with sensitive data
+fetchFirebaseData.js
+addSliderToFirebase.js
+deleteSliderFromFirebase.js
+
+# API keys and sensitive configs (if you add them separately later)
+# app/utils/firebase.ts
+
+# API directory (contains JSON data that can be regenerated)
+api/*.json
+
+# Editor
+.vscode/
+*.swp
+*.swo
+*~

@@ -10,8 +10,15 @@ app.use(express.json());
 // JSON dosyaları
 const dbFiles = {
   banners: 'banners.json',
+  categoryBanners: 'categoryBanners.json',
+  featuredDeals: 'featuredDeals.json',
   motors: 'motors.json',
   products: 'products.json',
+  recentlyViewed: 'recentlyViewed.json',
+  returnsBanners: 'returnsBanners.json',
+  returnsProducts: 'returnsProducts.json',
+  sliders: 'sliders.json',
+  spotlightDeals: 'spotlightDeals.json',
   trending: 'trending.json',
 };
 
@@ -28,7 +35,7 @@ function writeData(type, data) {
 }
 
 // CRUD endpointleri
-['banners', 'motors', 'products', 'trending'].forEach((type) => {
+['banners', 'categoryBanners', 'featuredDeals', 'motors', 'products', 'recentlyViewed', 'returnsBanners', 'returnsProducts', 'sliders', 'spotlightDeals', 'trending'].forEach((type) => {
   // Listele
   app.get(`/api/${type}`, (req, res) => {
     res.json(readData(type));

@@ -7,6 +7,7 @@ import type { Product } from '~/types/Product'
  * useAsyncData kullanarak server-side'da veri çeker
  */
 export const useProducts = () => {
+    // ========== Firebase (Aktif) ==========
     const { data: products, pending, error, refresh } = useAsyncData<Product[]>(
         'products',
         async () => {
@@ -27,6 +28,24 @@ export const useProducts = () => {
             lazy: false
         }
     )
+
+    // ========== Express API (Alternatif - Yorum) ==========
+    // const { data: products, pending, error, refresh } = useAsyncData<Product[]>(
+    //     'products',
+    //     async () => {
+    //         try {
+    //             const response = await $fetch('http://localhost:4001/api/products')
+    //             return response as Product[]
+    //         } catch (e) {
+    //             console.error('Error fetching products:', e)
+    //             return []
+    //         }
+    //     },
+    //     {
+    //         server: true,
+    //         lazy: false
+    //     }
+    // )
 
     return {
         products,

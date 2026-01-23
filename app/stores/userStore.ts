@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', {
     async fetchUsers() {
       this.loading = true;
       try {
-        const querySnapshot = await getDocs(collection(db, 'users'));
+        const querySnapshot = await getDocs(collection(db, 'users'));//çekti,okuma
         this.users = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as User[];
       } catch (e: any) {
         this.error = e.message;
@@ -24,8 +24,8 @@ export const useUserStore = defineStore('user', {
     async addUser(userData: Omit<User, 'id'>) {
       this.loading = true;
       try {
-        const docRef = await addDoc(collection(db, 'users'), userData);
-        const newUser = { id: docRef.id, ...userData } as User;
+        const docRef = await addDoc(collection(db, 'users'), userData);//yazma
+        const newUser = { id: docRef.id, ...userData } as User;//oluşturdu
         this.users.push(newUser);
         return newUser;
       } catch (e: any) {

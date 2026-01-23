@@ -1,7 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+
+  // App source directory
+  srcDir: 'app/',
+
+  // Public directory (static files)
+  dir: {
+    public: '../public'
+  },
 
   // Runtime configuration
   runtimeConfig: {

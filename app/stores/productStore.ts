@@ -23,7 +23,7 @@ export const useProductStore = defineStore('product', {
     },
     async addProduct(product: Omit<Product, 'id'>) {
       try {
-        await addDoc(collection(db, 'products'), product);
+        await addDoc(collection(db, 'products'), product);//yeni ürün eklendir
         await this.fetchProducts();
       } catch (e: any) {
         this.error = e.message;
@@ -32,7 +32,7 @@ export const useProductStore = defineStore('product', {
     async updateProduct(id: string, product: Partial<Product>) {
       try {
         const productRef = doc(db, 'products', id);
-        await updateDoc(productRef, product);
+        await updateDoc(productRef, product);//var olanı güncelleme kısmı bura
         await this.fetchProducts();
       } catch (e: any) {
         this.error = e.message;

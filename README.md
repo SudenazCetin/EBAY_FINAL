@@ -1,75 +1,107 @@
-# Nuxt Minimal Starter
+# 🛒 eBay Clone Project (Nuxt 3 & Firebase)
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Bu proje, Yalova Üniversitesi Bilgisayar Mühendisliği dersi kapsamında geliştirilmiş modern bir eBay klonudur. Kullanıcıların ürün arayabildiği, sepete ekleyebildiği ve favorilerine ekleyebildiği tam işlevsel bir e-ticaret platformudur.
 
-## Setup
+## 🚀 Teknolojiler
 
-Make sure to install dependencies:
+- **Framework:** Nuxt 3 / Vue 3
+- **Styling:** Tailwind CSS
+- **State Management:** Pinia
+- **Backend/Database:** Firebase (Firestore)
+- **Type Safety:** TypeScript
+
+## ✨ Özellikler
+
+- 🔐 Kullanıcı kimlik doğrulama (Login/Register)
+- 🛍️ Ürün katalogları ve kategori filtreleme
+- 🔍 Gelişmiş ürün arama
+- 🛒 Alışveriş sepeti yönetimi
+- ⭐ Favori ürünler (Watchlist)
+- 📱 Responsive tasarım
+- 🎨 Modern ve kullanıcı dostu arayüz
+- 🔥 Firebase ile gerçek zamanlı veri senkronizasyonu
+
+## 🛠 Kurulum ve Çalıştırma
+
+### 1. Projeyi Klonlayın
 
 ```bash
-# npm
+git clone https://github.com/SudenazCetin/EBAY_FINAL.git
+cd EBAY_FINAL
+```
+
+### 2. Bağımlılıkları Yükleyin
+
+```bash
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+### 3. Environment Variables Ayarlayın
 
-Start the development server on `http://localhost:3000`:
+**Önemli:** Kök dizinde bir `.env` dosyası oluşturun ve kendi Firebase anahtarlarınızı ekleyin:
 
 ```bash
-# npm
+# .env.example dosyasını kopyalayın
+cp .env.example .env
+```
+
+`.env` dosyanızı açın ve Firebase Console'dan aldığınız gerçek değerlerle doldurun:
+
+```env
+NUXT_PUBLIC_FIREBASE_API_KEY=your_actual_api_key
+NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NUXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+NUXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NUXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
+
+API_PORT=4001
+```
+
+### 4. Geliştirme Sunucusunu Başlatın
+
+```bash
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+Uygulama `http://localhost:3000` adresinde çalışmaya başlayacaktır.
 
-Build the application for production:
+## 📦 Production Build
+
+Production için build almak:
 
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+Production build'i önizlemek:
 
 ```bash
-# npm
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## 🔒 Güvenlik Notu
+
+`.env` dosyası asla GitHub'a yüklenmez. Bu dosya `.gitignore` içinde tanımlıdır ve API anahtarlarınızı gizli tutar. Projeyi klonlayan her kullanıcının kendi Firebase projesini oluşturması ve kendi anahtarlarını kullanması gerekmektedir.
+
+## 📝 Proje Yapısı
+
+```
+app/
+├── components/      # Vue bileşenleri (atoms, molecules, organisms)
+├── composables/     # Vue composables
+├── layouts/         # Sayfa layouts
+├── pages/           # Nuxt pages (routing)
+├── stores/          # Pinia stores
+├── types/           # TypeScript type definitions
+└── utils/           # Utility fonksiyonlar (Firebase config)
+```
+
+## 👨‍💻 Geliştirici
+
+**Sudenaz Çetin** - Yalova Üniversitesi Bilgisayar Mühendisliği
+
+## 📄 Lisans
+
+Bu proje eğitim amaçlı geliştirilmiştir.

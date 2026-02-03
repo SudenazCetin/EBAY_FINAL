@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🛒 eBay Clone Project
+#  eBay Clone Project
 
 ### Modern Full-Stack E-Commerce Platform
 
@@ -14,7 +14,7 @@
 
 ---
 
-## 📖 Proje Hakkında
+##  Proje Hakkında
 
 Bu proje, **Yalova Üniversitesi Bilgisayar Mühendisliği** dersi kapsamında geliştirilmiş modern bir **eBay klonudur**. Kullanıcıların ürün arayabildiği, sepete ekleyebildiği, favorilerine ekleyebildiği ve mesajlaşabildiği **tam işlevsel bir e-ticaret platformudur**.
 

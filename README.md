@@ -16,7 +16,7 @@
 
 ##  Proje Hakkında
 
-Bu proje, **Yalova Üniversitesi Bilgisayar Mühendisliği** dersi kapsamında geliştirilmiş modern bir **eBay klonudur**. Kullanıcıların ürün arayabildiği, sepete ekleyebildiği, favorilerine ekleyebildiği ve mesajlaşabildiği **tam işlevsel bir e-ticaret platformudur**.
+**Projenin Amacı:** Modern web teknolojileri kullanılarak geliştirilmiş, tam işlevsel ve ölçeklenebilir bir e-ticaret platformu simülasyonudur. Kullanıcı deneyimi ve temiz kod mimarisi ön planda tutularak tasarlanmıştır.
 
 ## 🚀 Teknoloji Stack
 
@@ -226,16 +226,4 @@ npm run preview
 
 ---
 
-## 📄 Lisans
 
-Bu proje **eğitim amaçlı** geliştirilmiştir.
-
----
-
-<div align="center">
-
-**⭐ Projeyi beğendiyseniz yıldız vermeyi unutmayın!**
-
-Made with ❤️ by Sudenaz Çetin
-
-</div>

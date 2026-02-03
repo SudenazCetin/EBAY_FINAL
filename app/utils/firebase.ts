@@ -2,15 +2,17 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
-// TODO: Replace with your Firebase project config
+// Nuxt runtime config'den Firebase ayarlarını al
+const config = useRuntimeConfig();
+
 const firebaseConfig = {
-  apiKey: "AIzaSyApd6fgqxWeyN4VQRLjr2REt0Ve2sl_Xcc",
-  authDomain: "ebay-nuxt-final.firebaseapp.com",
-  projectId: "ebay-nuxt-final",
-  storageBucket: "ebay-nuxt-final.firebasestorage.app",
-  messagingSenderId: "700656860406",
-  appId: "1:700656860406:web:de5e76c421516563b340d7",
-  measurementId: "G-WZYR36GM2X"
+  apiKey: config.public.firebaseApiKey,
+  authDomain: config.public.firebaseAuthDomain,
+  projectId: config.public.firebaseProjectId,
+  storageBucket: config.public.firebaseStorageBucket,
+  messagingSenderId: config.public.firebaseMessagingSenderId,
+  appId: config.public.firebaseAppId,
+  measurementId: config.public.firebaseMeasurementId
 };
 
 const app = initializeApp(firebaseConfig);

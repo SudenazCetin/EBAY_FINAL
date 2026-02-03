@@ -22,6 +22,7 @@ const handleSubmit = async () => {
     name: firstName.value + ' ' + lastName.value,
     email: email.value,
     avatar: '',
+    password: password.value
   })
   alert('Kullanıcı Firestore veritabanına eklendi!')
 }
